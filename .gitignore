@@ -1,0 +1,17 @@
+# macOS / outils
+.DS_Store
+.claude/
+.playwright-mcp/
+
+# références visuelles (non publiées)
+inspirations/
+
+# captures d'écran de travail à la racine
+/*.jpeg
+/*.png
+
+# sources PNG lourdes — seuls les .webp/.jpg optimisés sont servis
+assets/images/*.png
+assets/images/*/*.png
+assets/images/the-thing
+.vscode/
