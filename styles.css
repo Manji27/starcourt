@@ -4017,11 +4017,13 @@ body {
 }
 
 .style-spotlight .circle-badge strong {
-  color: var(--ss-pink);
+  color: #fff;
   font-family: "Pacifico", "Brush Script MT", cursive;
-  font-size: 1.85rem;
-  line-height: 1;
+  /* taille réduite pour que « Nouveautés » tienne dans le cercle */
+  font-size: 1.1rem;
+  line-height: 1.15;
   font-weight: 400;
+  text-shadow: 0 2px 6px rgba(8, 41, 87, 0.3);
 }
 
 .style-spotlight .circle-badge span {
@@ -4567,8 +4569,8 @@ body {
 .starcourt-hero .open-sticker {
   position: absolute;
   /* décalé à droite des boutons du hero pour ne plus recouvrir
-     « À propos du projet » */
-  left: clamp(39rem, 44vw, 52rem);
+     « À propos du projet » (élargi avec « Visiter le centre commercial ») */
+  left: clamp(48rem, 53vw, 58rem);
   bottom: clamp(2rem, 4vw, 4.5rem);
   z-index: 4;
   width: clamp(7rem, 10vw, 10.5rem);
@@ -5216,24 +5218,26 @@ body {
 /* BURST BADGE (scoped — there is also a .burst-badge under .style-spotlight) */
 .mall-highlights-section .burst-badge {
   position: absolute;
-  left: -1.1rem;
-  bottom: -1.45rem;
+  left: 0.65rem;
+  bottom: 0.75rem;
   z-index: 4;
-  width: 92px;
-  height: 92px;
+  width: 104px;
+  height: 104px;
   display: grid;
   place-items: center;
   text-align: center;
-  padding: 0.7rem;
+  padding: 0.55rem;
   background: var(--mh-teal);
   color: #fff;
   font-family: "Inter", Arial, sans-serif;
   font-weight: 900;
   text-transform: uppercase;
-  font-size: 0.86rem;
+  font-size: 0.76rem;
   line-height: 1;
   transform: rotate(-7deg);
-  box-shadow: 0 9px 16px rgba(8, 41, 87, 0.22);
+  /* box-shadow est rogné par le clip-path : drop-shadow suit la forme étoile */
+  filter: drop-shadow(0 5px 9px rgba(8, 41, 87, 0.4));
+  text-shadow: 0 1px 3px rgba(8, 41, 87, 0.35);
   letter-spacing: 0.02em;
   clip-path: polygon(
     50% 0%,
@@ -6591,16 +6595,18 @@ body {
   right: 6rem;
   bottom: -1.2rem;
   z-index: 4;
-  width: 112px;
-  height: 112px;
+  width: 122px;
+  height: 122px;
   display: grid;
-  place-items: center;
+  place-content: center;
   text-align: center;
+  padding: 0.55rem;
   border-radius: 50%;
   color: #fff;
-  background: var(--cn-teal-dark);
+  /* fond navy : le teal se fondait dans le bandeau teal derrière */
+  background: var(--cn-navy);
   border: 4px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 12px 22px rgba(8, 41, 87, 0.2);
+  box-shadow: 0 12px 22px rgba(8, 41, 87, 0.35);
   transform: rotate(-8deg);
   line-height: 1;
 }
@@ -6608,7 +6614,7 @@ body {
 .cinema-spotlight .movie-night-sticker span {
   font-family: "Inter", Arial, sans-serif;
   font-weight: 900;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   line-height: 1;
   letter-spacing: 0.02em;
 }
@@ -6616,10 +6622,10 @@ body {
 .cinema-spotlight .movie-night-sticker strong {
   color: var(--cn-pink);
   font-family: "Pacifico", "Brush Script MT", cursive;
-  font-size: 1.65rem;
+  font-size: 1.5rem;
   line-height: 0.9;
   font-weight: 400;
-  margin: 0.1rem 0;
+  margin: 0.15rem 0;
 }
 
 /* MEMPHIS DECOR */
