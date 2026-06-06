@@ -3,44 +3,15 @@
    ===================================================================== */
 
 (() => {
-  const nav = document.getElementById('nav');
-  const burger = document.getElementById('navBurger');
-
-  /* ---------- Nav scroll state ---------- */
-  if (nav) {
-    let lastY = 0;
-    const onScroll = () => {
-      const y = window.scrollY;
-      nav.classList.toggle('scrolled', y > 12);
-      lastY = y;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
-  /* ---------- Mobile burger ---------- */
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('is-open');
-      burger.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    // Close menu when a link is clicked
-    nav.querySelectorAll('.nav-links a').forEach((link) => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('is-open');
-        burger.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-
   /* ---------- Scroll reveal ---------- */
   const revealTargets = [
-    '.about-head', '.about-body', '.about-stats',
-    '.section-head', '.store-card', '.event-ticket',
-    '.food-tray', '.food-stall', '.movie',
-    '.map-frame', '.gal', '.info-card',
-    '.cta-inner', '.footer-top'
+    '.highlights-header', '.highlight-card',
+    '.style-left', '.product-card',
+    '.sweet-left', '.dessert-card',
+    '.cinema-left', '.movie-card', '.cinema-bottom-banner',
+    '.arcade-header', '.arcade-feature', '.arcade-screen', '.arcade-banner',
+    '.ac-ribbon', '.ac-title', '.ac-intro', '.ac-cta',
+    '.footer-top'
   ];
 
   const all = document.querySelectorAll(revealTargets.join(','));
@@ -64,26 +35,8 @@
     all.forEach((el) => el.classList.add('is-visible'));
   }
 
-  /* ---------- Map floor toggle (UI only — single illustrated plan) ---------- */
-  const mapToggles = document.querySelectorAll('.map-toggle');
-  mapToggles.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      mapToggles.forEach((b) => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-
-      // Subtle visual cue: hue-rotate on the SVG depending on level
-      const svg = document.querySelector('.map-svg');
-      if (!svg) return;
-      const isLower = btn.dataset.floor === 'lower';
-      svg.style.transition = 'filter 0.5s ease';
-      svg.style.filter = isLower
-        ? 'drop-shadow(0 0 24px rgba(255, 122, 45, 0.18)) hue-rotate(-25deg)'
-        : 'drop-shadow(0 0 24px rgba(0, 217, 255, 0.1))';
-    });
-  });
-
-  /* ---------- Smooth-scroll active nav link ---------- */
-  const navLinks = (nav || document).querySelectorAll('.nav-links a');
+  /* ---------- Lien de nav actif au scroll ---------- */
+  const navLinks = document.querySelectorAll('.nav-links a');
   const sections = Array.from(navLinks).map((link) => {
     const id = link.getAttribute('href');
     return id && id.startsWith('#') ? document.querySelector(id) : null;
@@ -102,30 +55,6 @@
   };
   window.addEventListener('scroll', setActive, { passive: true });
   setActive();
-
-  /* ---------- Live "Now" widget in hero meta ---------- */
-  const nowEl = document.querySelector('.hero-meta-item:first-child .hero-meta-value');
-  if (nowEl) {
-    const update = () => {
-      const d = new Date();
-      const h = d.getHours();
-      const isOpen = h >= 10 && h < 21;
-      nowEl.textContent = isOpen ? '10:00 — 21:00 · OPEN' : '10:00 — 21:00 · CLOSED';
-    };
-    update();
-    setInterval(update, 60_000);
-  }
-
-  /* ---------- Subtle parallax on hero badge ---------- */
-  const badge = document.querySelector('.hero-badge');
-  if (badge && window.matchMedia('(min-width: 1024px)').matches &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 16;
-      const y = (e.clientY / window.innerHeight - 0.5) * 16;
-      badge.style.transform = `translate(${x}px, ${y}px)`;
-    });
-  }
 
   /* ---------- Easter egg : l'Envers (the Upside Down) ----------
      Triple-clic sur le logo Starcourt → les néons grésillent et
