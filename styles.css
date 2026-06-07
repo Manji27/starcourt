@@ -6490,10 +6490,10 @@ body {
     linear-gradient(165deg, var(--cn-yellow) 0%, var(--cn-orange) 40%, #6b3f1d 100%);
 }
 
-.cinema-spotlight .poster-terminator {
+.cinema-spotlight .poster-dayofdead {
   background:
-    radial-gradient(circle at 75% 20%, rgba(232, 68, 123, 0.5), transparent 45%),
-    linear-gradient(160deg, #1a1f3d 0%, var(--cn-navy) 50%, var(--cn-pink-dark) 100%);
+    radial-gradient(circle at 50% 25%, rgba(246, 155, 91, 0.55), transparent 45%),
+    linear-gradient(160deg, var(--cn-orange) 0%, var(--cn-purple) 55%, var(--cn-navy) 100%);
 }
 
 .cinema-spotlight .movie-content {
