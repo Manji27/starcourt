@@ -6409,7 +6409,10 @@ body {
 
 .cinema-spotlight .now-showing-header span {
   position: absolute;
-  left: 2rem;
+  /* centré dans le bandeau de 245px (238px : compense la coupe diagonale) */
+  left: 0;
+  width: 238px;
+  text-align: center;
   top: 50%;
   transform: translateY(-50%);
   font-family: "Inter", Arial, sans-serif;
