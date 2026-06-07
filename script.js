@@ -15,9 +15,15 @@
   ];
 
   const all = document.querySelectorAll(revealTargets.join(','));
-  all.forEach((el, i) => {
+  // cascade par grille : chaque groupe de cartes repart de zéro,
+  // les éléments isolés apparaissent sans délai
+  const groupCount = new Map();
+  all.forEach((el) => {
+    const parent = el.parentElement;
+    const idx = groupCount.get(parent) || 0;
+    groupCount.set(parent, idx + 1);
     el.classList.add('reveal');
-    el.style.transitionDelay = `${(i % 8) * 60}ms`;
+    el.style.setProperty('--reveal-delay', `${Math.min(idx, 5) * 80}ms`);
   });
 
   if ('IntersectionObserver' in window) {
