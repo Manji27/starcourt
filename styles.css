@@ -4321,7 +4321,8 @@ body {
 
 .starcourt-hero .logo-sub {
   margin-left: 9.5rem;
-  margin-top: -0.2rem;
+  /* descendu : la boucle du « t » de Starcourt masquait le haut de MALL */
+  margin-top: 0.45rem;
   font-size: 1.75rem;
   font-weight: 900;
   text-transform: uppercase;
@@ -7799,8 +7800,12 @@ body {
     to { transform: translateX(-50%); }
   }
 
-  /* flicker néon : presque toujours allumé, deux brefs creux */
-  .starcourt-hero .logo-main,
+  /* flicker néon : presque toujours allumé, deux brefs creux.
+     Le logo Starcourt grésille plus souvent (cycle court) */
+  .starcourt-hero .logo-main {
+    animation: neon-flicker 4s linear infinite;
+  }
+
   .cinema-spotlight .cinema-title span {
     animation: neon-flicker 11s linear infinite;
   }
@@ -8543,88 +8548,64 @@ body.upside-down .ud-overlay {
 }
 
 /* =============================================================
-   INTRO « INSERTION VHS » — la cassette se cale au chargement
-   (joue une seule fois, désactivée par prefers-reduced-motion)
+   ENTRÉE DU HERO — seul le fond est visible au chargement,
+   puis la nav et le contenu arrivent en fondu, en cascade
+   (désactivée par prefers-reduced-motion)
    ============================================================= */
-.starcourt-hero .vhs-osd {
-  position: absolute;
-  top: clamp(8.5rem, 16vh, 11rem);
-  right: clamp(1.2rem, 3vw, 3rem);
-  z-index: 12;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: 700;
-  font-size: clamp(0.95rem, 1.2vw, 1.2rem);
-  letter-spacing: 0.22em;
-  color: #fff;
-  text-shadow:
-    0 0 8px rgba(255, 255, 255, 0.9),
-    2px 0 0 rgba(233, 68, 121, 0.55),
-    -2px 0 0 rgba(53, 174, 184, 0.55);
-  opacity: 0;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  /* l'image roule, ondule et se stabilise comme une cassette qu'on insère */
-  .starcourt-hero {
-    animation: vhs-insert 1.05s ease-out both;
+  .starcourt-hero .hero-nav {
+    animation: sh-enter-down 0.8s cubic-bezier(0.25, 0.8, 0.35, 1) 0.5s both;
   }
 
-  @keyframes vhs-insert {
-    0%   { filter: brightness(1.7) contrast(1.45) saturate(0.15); transform: translateY(-1.4%) skewX(0.8deg); }
-    14%  { filter: brightness(0.8) contrast(1.35) saturate(0.35); transform: translateY(1%) skewX(-0.5deg); }
-    28%  { filter: brightness(1.25) contrast(1.2) saturate(0.55); transform: translateY(-0.6%) skewX(0.35deg); }
-    46%  { filter: brightness(0.92) contrast(1.12) saturate(0.75); transform: translateY(0.35%) skewX(-0.15deg); }
-    66%  { filter: brightness(1.06) contrast(1.04) saturate(0.9); transform: translateY(-0.12%); }
-    100% { filter: none; transform: none; }
+  .starcourt-hero .opening-badge {
+    animation: sh-enter-up 0.7s cubic-bezier(0.25, 0.8, 0.35, 1) 0.75s both;
   }
 
-  /* grosses bandes de tracking qui sautent pendant l'insertion */
-  .starcourt-hero .vhs-tracking::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.28) 0 8%,
-      transparent 8% 22%,
-      rgba(160, 220, 255, 0.2) 22% 26%,
-      transparent 26% 70%,
-      rgba(255, 255, 255, 0.24) 70% 76%,
-      transparent 76%
-    );
-    mix-blend-mode: screen;
-    filter: blur(1.5px);
-    opacity: 0;
-    animation: vhs-insert-bands 1.05s steps(5, jump-none) both;
+  .starcourt-hero .hero-copy h1 {
+    animation: sh-enter-up 0.8s cubic-bezier(0.25, 0.8, 0.35, 1) 0.9s both;
   }
 
-  @keyframes vhs-insert-bands {
-    0%   { opacity: 1; transform: translateY(-6%); }
-    20%  { transform: translateY(14%); }
-    40%  { transform: translateY(-9%); }
-    60%  { opacity: 0.7; transform: translateY(6%); }
-    80%  { opacity: 0.35; transform: translateY(-3%); }
-    100% { opacity: 0; transform: translateY(0); }
+  .starcourt-hero .hero-subtitle {
+    animation: sh-enter-up 0.7s cubic-bezier(0.25, 0.8, 0.35, 1) 1.1s both;
   }
 
-  /* OSD magnétoscope : ▶ PLAY clignote puis s'efface */
-  .starcourt-hero .vhs-osd {
-    animation: vhs-osd-blink 1.6s linear both;
+  .starcourt-hero .hero-copy .zigzag,
+  .starcourt-hero .hero-description {
+    animation: sh-enter-up 0.7s cubic-bezier(0.25, 0.8, 0.35, 1) 1.25s both;
   }
 
-  /* sur mobile la nav passe sur plusieurs lignes : on masque l'OSD */
-  @media (max-width: 700px) {
-    .starcourt-hero .vhs-osd {
-      display: none;
-    }
+  .starcourt-hero .hero-actions {
+    animation: sh-enter-up 0.7s cubic-bezier(0.25, 0.8, 0.35, 1) 1.45s both;
   }
 
-  @keyframes vhs-osd-blink {
-    0%, 6% { opacity: 0; }
-    10%, 30% { opacity: 1; }
-    34%, 40% { opacity: 0.35; }
-    44%, 80% { opacity: 1; }
-    100% { opacity: 0; }
+  /* le sticker arrive en fondu puis garde son flottement */
+  .starcourt-hero .open-sticker {
+    animation:
+      sh-enter-fade 0.7s ease-out 1.7s both,
+      float-soft 5.5s ease-in-out 2.4s infinite;
+  }
+
+  .starcourt-hero .rec,
+  .starcourt-hero .decor,
+  .starcourt-hero .memphis-grid,
+  .starcourt-hero .memphis-circle,
+  .starcourt-hero .memphis-triangle,
+  .starcourt-hero .memphis-zigzag {
+    animation: sh-enter-fade 0.9s ease-out 1.6s both;
+  }
+
+  @keyframes sh-enter-down {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes sh-enter-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes sh-enter-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 }
