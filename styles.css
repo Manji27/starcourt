@@ -4216,6 +4216,16 @@ body {
   min-height: 100vh;
   overflow: hidden;
   color: var(--sh-navy);
+  background: #fff6e0;
+  isolation: isolate;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Photo du mall sur un calque dédié : permet le micro-zoom d'entrée */
+.starcourt-hero .hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   background:
     linear-gradient(
       90deg,
@@ -4226,8 +4236,6 @@ body {
       rgba(255, 246, 224, 0) 68%
     ),
     url("assets/images/starcourtmall-hero.webp") center right / cover no-repeat;
-  isolation: isolate;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Texture papier / grain */
@@ -4772,7 +4780,7 @@ body {
     width: min(720px, 70vw);
   }
 
-  .starcourt-hero {
+  .starcourt-hero .hero-bg {
     background:
       linear-gradient(
         90deg,
@@ -4787,6 +4795,9 @@ body {
 @media (max-width: 760px) {
   .starcourt-hero {
     min-height: auto;
+  }
+
+  .starcourt-hero .hero-bg {
     background:
       linear-gradient(
         to bottom,
@@ -8581,6 +8592,17 @@ body.upside-down .ud-overlay {
    (désactivée par prefers-reduced-motion)
    ============================================================= */
 @media (prefers-reduced-motion: no-preference) {
+  /* micro-zoom arrière du fond : on « entre » dans le mall */
+  .starcourt-hero .hero-bg {
+    transform-origin: 68% 42%; /* vers l'enseigne Starcourt */
+    animation: sh-bg-zoom 2.8s cubic-bezier(0.22, 0.6, 0.3, 1) both;
+  }
+
+  @keyframes sh-bg-zoom {
+    from { transform: scale(1.035); }
+    to { transform: none; }
+  }
+
   .starcourt-hero .hero-nav {
     animation: sh-enter-down 0.8s cubic-bezier(0.25, 0.8, 0.35, 1) 0.5s both;
   }
