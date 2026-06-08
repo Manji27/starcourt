@@ -3,6 +3,34 @@
    ===================================================================== */
 
 (() => {
+  /* ---------- Menu burger (mobile) ---------- */
+  const burger = document.querySelector('.nav-burger');
+  const burgerNav = document.querySelector('.hero-nav .nav-links');
+
+  if (burger && burgerNav) {
+    const closeMenu = () => {
+      burgerNav.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Ouvrir le menu');
+    };
+
+    burger.addEventListener('click', () => {
+      const isOpen = burgerNav.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', String(isOpen));
+      burger.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+    });
+
+    // referme le tiroir après le clic sur un lien d'ancrage
+    burgerNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Échap referme le menu
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && burgerNav.classList.contains('is-open')) closeMenu();
+    });
+  }
+
   /* ---------- Scroll reveal ---------- */
   const revealTargets = [
     '.highlights-header', '.highlight-card',

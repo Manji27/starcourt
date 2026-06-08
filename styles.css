@@ -4339,8 +4339,47 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-/* (barres décoratives autour de « MALL » supprimées — elles ressemblaient
-   à un menu burger sous le logo) */
+/* Bouton burger — masqué en desktop, affiché en mobile via media query */
+.starcourt-hero .nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.85);
+  border: 2.5px solid var(--sh-pink);
+  border-radius: 0.6rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(201, 50, 98, 0.25);
+  z-index: 6;
+}
+
+.starcourt-hero .nav-burger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--sh-pink);
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+/* croix quand le menu est ouvert */
+.starcourt-hero .nav-burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.starcourt-hero .nav-burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.starcourt-hero .nav-burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* le lien « Me contacter » dans le tiroir : caché en desktop */
+.starcourt-hero .nav-links-cta {
+  display: none;
+}
 
 .starcourt-hero .nav-links {
   position: static;
@@ -4792,6 +4831,84 @@ body {
   }
 }
 
+/* ===== Menu burger : tablette & mobile (≤ 900px) ===== */
+@media (max-width: 900px) {
+  /* header : logo à gauche, burger à droite */
+  .starcourt-hero .hero-nav {
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    padding: 1.5rem clamp(1.4rem, 4vw, 3rem);
+  }
+
+  .starcourt-hero .nav-burger {
+    display: flex;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+  }
+
+  /* le CTA pleine largeur du header disparaît (déplacé dans le tiroir) */
+  .starcourt-hero > .hero-nav > .nav-cta {
+    display: none;
+  }
+
+  /* tiroir déroulant : caché par défaut, pleine largeur sous le header */
+  .starcourt-hero .nav-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.4s ease;
+    background: rgba(255, 247, 230, 0.97);
+    border-radius: 0.8rem;
+    border: 2px solid rgba(233, 68, 121, 0.3);
+  }
+
+  .starcourt-hero .nav-links.is-open {
+    max-height: 30rem;
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 0.4rem;
+  }
+
+  .starcourt-hero .nav-links a {
+    padding: 1rem 1.3rem;
+    border-bottom: 1px solid rgba(233, 68, 121, 0.18);
+    font-size: 1.2rem;
+  }
+
+  .starcourt-hero .nav-links a:last-child {
+    border-bottom: none;
+  }
+
+  .starcourt-hero .nav-links a:hover {
+    transform: none;
+    background: rgba(233, 68, 121, 0.07);
+  }
+
+  /* « Me contacter » mis en valeur en bas du tiroir */
+  .starcourt-hero .nav-links-cta {
+    display: block;
+    margin: 0.5rem;
+    padding: 0.95rem 1.3rem;
+    text-align: center;
+    border-radius: 0.55rem;
+    background: linear-gradient(135deg, #f25a8b, var(--sh-pink-dark));
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+  }
+
+  .starcourt-hero .nav-links-cta:hover {
+    background: linear-gradient(135deg, #f25a8b, var(--sh-pink-dark));
+  }
+}
+
 @media (max-width: 760px) {
   .starcourt-hero {
     min-height: auto;
@@ -4808,12 +4925,6 @@ body {
       url("assets/images/starcourtmall-hero.webp") center bottom / cover no-repeat;
   }
 
-  .starcourt-hero .hero-nav {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-    padding: 1.5rem;
-  }
-
   .starcourt-hero .logo-main {
     font-size: 3.1rem;
   }
@@ -4825,12 +4936,6 @@ body {
 
   .starcourt-hero .logo-star {
     font-size: 4.6rem;
-  }
-
-  .starcourt-hero .nav-cta {
-    width: fit-content;
-    min-height: 3.6rem;
-    font-size: 1rem;
   }
 
   .starcourt-hero .hero-content {
