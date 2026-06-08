@@ -4868,7 +4868,7 @@ body {
     display: flex;
     align-items: center;
     min-height: 3.6rem;
-    padding: 0 1.4rem;
+    padding: 0 1.8rem 0 2rem;
     border-bottom: 1px solid rgba(233, 68, 121, 0.16);
     font-size: 1.15rem;
     border-radius: 0;
