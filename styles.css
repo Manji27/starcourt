@@ -4960,17 +4960,8 @@ body {
     font-size: 1.6rem;
   }
 
-  /* la nav mobile se resserre : liens sur une ligne fluide */
-  .starcourt-hero .nav-links {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 0.6rem 1.5rem;
-  }
-
-  .starcourt-hero .nav-links a {
-    font-size: 1rem;
-    padding: 0; /* neutralise le padding 10px 16px du legacy .nav-links a */
-  }
+  /* (les anciennes règles .nav-links / .nav-links a de la nav mobile
+     « à plat » ont été retirées : le menu burger ≤ 1100px les gère) */
 
   /* les retours à la ligne forcés du sous-texte n'ont pas de sens
      sur petit écran */
