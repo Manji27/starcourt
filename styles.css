@@ -4797,24 +4797,7 @@ body {
    RESPONSIVE
 ========================= */
 @media (max-width: 1100px) {
-  .starcourt-hero .hero-nav {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .starcourt-hero .nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 1.2rem 1.6rem;
-    font-size: 0.95rem;
-  }
-
-  .starcourt-hero .nav-cta {
-    justify-self: end;
-    margin-top: 0.5rem;
-  }
-
+  /* la nav (liens + CTA) passe en menu burger — voir bloc dédié ci-dessous */
   .starcourt-hero .hero-copy {
     width: min(720px, 70vw);
   }
@@ -4831,11 +4814,12 @@ body {
   }
 }
 
-/* ===== Menu burger : tablette & mobile (≤ 900px) ===== */
-@media (max-width: 900px) {
-  /* header : logo à gauche, burger à droite */
+/* ===== Menu burger : desktop étroit, tablette & mobile (≤ 1100px) ===== */
+@media (max-width: 1100px) {
+  /* header : logo à gauche, burger à droite, alignés en haut */
   .starcourt-hero .hero-nav {
     grid-template-columns: 1fr auto;
+    align-items: start;
     gap: 1rem;
     padding: 1.5rem clamp(1.4rem, 4vw, 3rem);
   }
@@ -4845,7 +4829,6 @@ body {
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
-    align-self: center;
   }
 
   /* le CTA pleine largeur du header disparaît (déplacé dans le tiroir) */
@@ -4853,59 +4836,63 @@ body {
     display: none;
   }
 
-  /* tiroir déroulant : caché par défaut, pleine largeur sous le header */
+  /* tiroir déroulant : carte qui clippe ses enfants aux coins arrondis */
   .starcourt-hero .nav-links {
     grid-column: 1 / -1;
     grid-row: 2;
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: stretch;
     gap: 0;
+    padding: 0;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     pointer-events: none;
     transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.4s ease;
-    background: rgba(255, 247, 230, 0.97);
-    border-radius: 0.8rem;
-    border: 2px solid rgba(233, 68, 121, 0.3);
+    background: rgba(255, 248, 233, 0.98);
+    border-radius: 0.9rem;
+    border: 2px solid rgba(233, 68, 121, 0.28);
+    box-shadow: 0 14px 30px rgba(8, 41, 87, 0.12);
   }
 
   .starcourt-hero .nav-links.is-open {
-    max-height: 30rem;
+    max-height: 32rem;
     opacity: 1;
     pointer-events: auto;
-    margin-top: 0.4rem;
+    margin-top: 0.6rem;
   }
 
+  /* liens : hauteur régulière, divisés par une fine ligne */
   .starcourt-hero .nav-links a {
-    padding: 1rem 1.3rem;
-    border-bottom: 1px solid rgba(233, 68, 121, 0.18);
-    font-size: 1.2rem;
-  }
-
-  .starcourt-hero .nav-links a:last-child {
-    border-bottom: none;
+    display: flex;
+    align-items: center;
+    min-height: 3.6rem;
+    padding: 0 1.4rem;
+    border-bottom: 1px solid rgba(233, 68, 121, 0.16);
+    font-size: 1.15rem;
+    border-radius: 0;
   }
 
   .starcourt-hero .nav-links a:hover {
     transform: none;
-    background: rgba(233, 68, 121, 0.07);
+    background: rgba(233, 68, 121, 0.06);
   }
 
-  /* « Me contacter » mis en valeur en bas du tiroir */
-  .starcourt-hero .nav-links-cta {
-    display: block;
-    margin: 0.5rem;
-    padding: 0.95rem 1.3rem;
-    text-align: center;
-    border-radius: 0.55rem;
+  /* « Me contacter » : dernier élément, pleine largeur, flush en bas */
+  .starcourt-hero .nav-links a.nav-links-cta {
+    display: flex;
+    justify-content: center;
+    min-height: 3.9rem;
+    margin: 0;
+    border-bottom: none;
     background: linear-gradient(135deg, #f25a8b, var(--sh-pink-dark));
     color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.85);
+    font-size: 1.15rem;
   }
 
-  .starcourt-hero .nav-links-cta:hover {
-    background: linear-gradient(135deg, #f25a8b, var(--sh-pink-dark));
+  .starcourt-hero .nav-links a.nav-links-cta:hover {
+    background: linear-gradient(135deg, #f4699a, var(--sh-pink));
   }
 }
 
